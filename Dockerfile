@@ -10,6 +10,6 @@ FROM openjdk:8-jre
 
 WORKDIR /app
 
-COPY --from=MAVEN_BUILD /build/target/demo-0.0.1-SNAPSHOT.jar /app/backend-api.jar
+COPY --from=MAVEN_BUILD /build/target/*.jar /app/app.jar
 
-ENTRYPOINT ["java", "-jar", "backend-api.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
