@@ -63,7 +63,7 @@ Docker_build:
     changes:
       - "^src/.*"
       - "Dockerfile"
-      - ".gitlab-ci.yml"
+      #- ".gitlab-ci.yml"
 
 Deploy_to_Kubernetes:
   stage: deploy_to_k8s
