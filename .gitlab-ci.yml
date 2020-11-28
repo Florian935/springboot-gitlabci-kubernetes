@@ -73,6 +73,7 @@ Deploy_to_Kubernetes:
     #- gcloud container clusters get-credentials spring-customci-k8s --zone us-central1-a --project spring-cicd-k8s
   script:
     - kubectl version
+    - sed_files deployment
     - kubectl apply -f deployment.yml
   environment:
     name: production
@@ -80,3 +81,14 @@ Deploy_to_Kubernetes:
   only:
     - master
   when: manual
+
+.helper_functions: &helper_functions_template |
+  function sed_files() {
+        echo "Applying SED on Deployment Yamls"
+        sed -i "s/__CI_ENVIRONMENT_SLUG__/${CI_ENVIRONMENT_SLUG}/" deployment.yml
+        sed -i "s/__CI_PROJECT_PATH_SLUG__/${CI_PROJECT_PATH_SLUG}/" deployment.yml
+  }
+
+before_script:
+  - *helper_functions_template
+

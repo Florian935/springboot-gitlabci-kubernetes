@@ -33,6 +33,9 @@ spec:
       labels:
         app: springboot
         ref: commit
+      annotations:
+        app.gitlab.com/app: __CI_PROJECT_PATH_SLUG__
+        app.gitlab.com/env: __CI_ENVIRONMENT_SLUG__
     spec:
       containers:
       - name: spring
