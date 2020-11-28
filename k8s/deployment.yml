@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: springboot-__CI_PROJECT_NAME__
+  name: springboot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springboot-__CI_PROJECT_NAME__
+  template:
+    metadata:
+      labels:
+        app: springboot-__CI_PROJECT_NAME__
+      annotations:
+        app.gitlab.com/app: __CI_PROJECT_PATH_SLUG__
+        app.gitlab.com/env: __CI_ENVIRONMENT_SLUG__
+    spec:
+      containers:
+      - name: springboot
+        image: __CI_REGISTRY_IMAGE__:latest
+        ports:
+        - containerPort: 8080
+          name: springboot
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: springboot-__CI_PROJECT_NAME__
+  name: springboot
+spec:
+  ports:
+    - name: spring
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: springboot-__CI_PROJECT_NAME__
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: app-ingress
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "nginx"
+  labels:
+    app: ingress-__CI_PROJECT_NAME__
+    ref: __CI_ENVIRONMENT_SLUG__
+spec:
+  rules:
+    - host: __CI_ENVIRONMENT_SLUG__.__KUBE_INGRESS_BASE_DOMAIN__
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: springboot
+              servicePort: 8080
+---
