@@ -90,7 +90,10 @@ Deploy_to_Kubernetes:
   }
 
   function ensure_namespace() {
+      echo "Setting default namespace to: $KUBE_NAMESPACE ..."
       kubectl describe namespace "$KUBE_NAMESPACE" || kubectl create namespace "$KUBE_NAMESPACE"
+      kubectl config set-context --current --namespace="$KUBE_NAMESPACE"
+
   }
 
 before_script:
