@@ -1,34 +1,42 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: kubernetes
-spec:
-  selector:
-    matchLabels:
-      app: kubernetes
-    replicas: 1
-    template:
-      metadata:
-        labels:
-          app: kubernetes
-      spec:
-        containers:
-          - name: kubernetes
-            image: registry.gitlab.com/florian935/spring-customci-k8s:latest
-            ports:
-              - name: kubernetes
-                containerPort: 8080
-                protocol: TCP
+# Deploy Springboot app
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: kubernetes-service
   labels:
-    app: kubernetes
+    app: springboot
+    ref: commit
+  name: spring
 spec:
-  type: LoadBalancer
+  clusterIP: None
   ports:
-    - port: 8080
-    selector:
-      app: kubernetes
+    - name: spring
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: springboot
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring
+  labels:
+    app: springboot
+    ref: commit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springboot
+  template:
+    metadata:
+      labels:
+        app: springboot
+        ref: commit
+    spec:
+      containers:
+        - name: spring
+          image: registry.gitlab.com/florian935/spring-customci-k8s:latest
+          ports:
+            - containerPort: 8080
+              name: 8080
