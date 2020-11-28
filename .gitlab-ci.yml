@@ -87,9 +87,11 @@ Deploy_to_Kubernetes:
   function sed_files() {
     echo "Applying SED on Deployment Yamls"
     echo "CI_ENVIRONMENT_SLUG variable: ${CI_ENVIRONMENT_SLUG}"
-    echo "CI_ENVIRONMENT_SLUG variable: ${CI_PROJECT_PATH_SLUG}"
+    echo "CI_PROJECT_PATH_SLUG variable: ${CI_PROJECT_PATH_SLUG}"
     sed -i "s/__CI_ENVIRONMENT_SLUG__/${CI_ENVIRONMENT_SLUG}/" deployment.yml
     sed -i "s/__CI_PROJECT_PATH_SLUG__/${CI_PROJECT_PATH_SLUG}/" deployment.yml
+    sed -i "s/__CI_PROJECT_NAME__/${CI_PROJECT_NAME}/" deployment.yml
+    sed -i "s/__CI_ENVIRONMENT_SLUG__/${CI_ENVIRONMENT_SLUG}/" deployment.yml
   }
 
   function ensure_namespace() {
