@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
       - name: springboot
-        image: registry.gitlab.com/florian935/spring-customci-k8s:latest
+        image: __CI_REGISTRY_IMAGE__:latest
         ports:
         - containerPort: 8080
           name: springboot

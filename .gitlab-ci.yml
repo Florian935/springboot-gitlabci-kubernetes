@@ -73,9 +73,9 @@ Deploy_to_Kubernetes:
     #- gcloud container clusters get-credentials spring-customci-k8s --zone us-central1-a --project spring-cicd-k8s
   script:
     - kubectl version
+    - ensure_namespace
     - sed_files
     - kubectl apply -f deployment.yml
-    - ensure_namespace
   environment:
     name: production
     url: https://$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
@@ -92,11 +92,13 @@ Deploy_to_Kubernetes:
     sed -i "s/__CI_PROJECT_PATH_SLUG__/${CI_PROJECT_PATH_SLUG}/" deployment.yml
     sed -i "s/__CI_PROJECT_NAME__/${CI_PROJECT_NAME}/" deployment.yml
     sed -i "s/__CI_ENVIRONMENT_SLUG__/${CI_ENVIRONMENT_SLUG}/" deployment.yml
+    sed -i "s~__CI_REGISTRY_IMAGE__~${CI_REGISTRY_IMAGE}~" deployment.yml
   }
 
   function ensure_namespace() {
     echo "Setting default namespace to: $KUBE_NAMESPACE ..."
     kubectl get namespace "$KUBE_NAMESPACE" || kubectl create namespace "$KUBE_NAMESPACE"
+    kubectl config set-context --current --namespace="$KUBE_NAMESPACE"
   }
 
 before_script:
