@@ -74,6 +74,7 @@ Deploy_to_Kubernetes:
   script:
     - kubectl version
     - sed_files
+    - ensure_namespace
     - kubectl apply -f deployment.yml
   environment:
     name: production
