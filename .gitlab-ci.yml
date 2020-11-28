@@ -62,3 +62,4 @@ Docker_build:
     changes:
       - "^src/.*"
       - "Dockerfile"
+      - ".gitlab-ci.yml"
