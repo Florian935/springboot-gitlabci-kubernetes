@@ -1,9 +1,13 @@
 variables:
-  PROJECT_NAME: kubernetes-0.0.1-SNAPSHOT
+  #PROJECT_NAME: kubernetes-0.0.1-SNAPSHOT
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+
 
 stages:
   - build
   - test
+  - docker_build
 
 # Build and Test are two different jobs in the same stage.
 # This allows us to run these two sequentially and making build faster
@@ -23,7 +27,8 @@ Build:
   artifacts:
     #name: WAR File
     paths:
-      - target/$PROJECT_NAME.jar
+      #- target/$PROJECT_NAME.jar
+      - target/*jar
   only:
     changes:
       - "^src/.*"
@@ -40,3 +45,20 @@ Test:
   only:
     changes:
       - "^src/.*"
+
+Docker_build:
+  image: docker:18.09
+  services:
+    - docker:18.09-dind
+  stage: docker_build
+  # This command is run before actual stages start running
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    - docker pull $CI_REGISTRY_IMAGE || true
+    - docker build --cache-from $CI_REGISTRY_NAME -t $CI_REGISTRY_IMAGE .
+    - docker push $CI_REGISTRY_IMAGE
+  only:
+    changes:
+      - "^src/.*"
+      - "Dockerfile"
