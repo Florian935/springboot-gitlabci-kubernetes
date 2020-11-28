@@ -10,9 +10,9 @@ metadata:
 spec:
   clusterIP: None
   ports:
-    - name: spring
-      port: 8080
-      targetPort: 8080
+  - name: spring
+    port: 8080
+    targetPort: 8080
   selector:
     app: springboot
 ---
@@ -35,8 +35,8 @@ spec:
         ref: commit
     spec:
       containers:
-        - name: spring
-          image: registry.gitlab.com/florian935/spring-customci-k8s:latest
-          ports:
-            - containerPort: 8080
-              name: 8080
+      - name: spring
+        image: registry.gitlab.com/florian935/spring-customci-k8s:latest
+        ports:
+        - containerPort: 8080
+          name: spring
