@@ -8,6 +8,7 @@ stages:
   - build
   - test
   - docker_build
+  - deploy_to_k8s
 
 # Build and Test are two different jobs in the same stage.
 # This allows us to run these two sequentially and making build faster
@@ -63,3 +64,19 @@ Docker_build:
       - "^src/.*"
       - "Dockerfile"
       - ".gitlab-ci.yml"
+
+Deploy_to_Kubernetes:
+  stage: deploy_to_k8s
+  image: google/cloud-sdk
+  #before_script:
+    # Authenticate with GKE
+    #- gcloud container clusters get-credentials spring-customci-k8s --zone us-central1-a --project spring-cicd-k8s
+  script:
+    - kubectl version
+    - kubectl apply -f deployment.yml
+  environment:
+    name: production
+    url: https://$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
+  only:
+    - master
+  when: manual
