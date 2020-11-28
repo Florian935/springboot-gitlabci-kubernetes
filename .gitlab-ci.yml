@@ -75,7 +75,7 @@ Deploy_to_Kubernetes:
     - kubectl version
     - ensure_namespace
     - sed_files
-    - kubectl apply -f deployment.yml
+    - kubectl apply -f k8s/
   environment:
     name: production
     url: http://$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
