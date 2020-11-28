@@ -73,7 +73,7 @@ Deploy_to_Kubernetes:
     #- gcloud container clusters get-credentials spring-customci-k8s --zone us-central1-a --project spring-cicd-k8s
   script:
     - kubectl version
-    - sed_files deployment
+    - sed_files
     - kubectl apply -f deployment.yml
   environment:
     name: production
