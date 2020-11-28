@@ -89,6 +89,10 @@ Deploy_to_Kubernetes:
         sed -i "s/__CI_PROJECT_PATH_SLUG__/${CI_PROJECT_PATH_SLUG}/" deployment.yml
   }
 
+  function ensure_namespace() {
+      kubectl describe namespace "$KUBE_NAMESPACE" || kubectl create namespace "$KUBE_NAMESPACE"
+  }
+
 before_script:
   - *helper_functions_template
 
