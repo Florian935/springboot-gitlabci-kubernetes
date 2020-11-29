@@ -13,7 +13,7 @@ public class RootController {
 
     @GetMapping("/demo")
     public String demo() {
-        return "Hello from Demo yo !";
+        return "Hello from Demo yop !";
     }
 
     @GetMapping("/kida")
