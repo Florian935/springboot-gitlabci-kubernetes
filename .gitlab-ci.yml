@@ -75,6 +75,7 @@ Deploy_to_Kubernetes:
     - kubectl version
     - ensure_namespace
     - sed_files
+    - kubectl delete pod --all
     - kubectl apply -f k8s/
   environment:
     name: production
