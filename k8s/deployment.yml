@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: springboot
-        image: __CI_REGISTRY_IMAGE__:latest
+        image: __CI_REGISTRY_IMAGE__:__VERSION__
         ports:
         - containerPort: 8080
           name: springboot
