@@ -59,11 +59,11 @@ Docker_build:
     - docker pull $CI_REGISTRY_IMAGE || true
     - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME} .
     - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}
-  only:
-    changes:
-      - src/*
-      - "Dockerfile"
-      - ".gitlab-ci.yml"
+  #only:
+  #  changes:
+  #    - "src/*"
+  #    - "Dockerfile"
+  #    - ".gitlab-ci.yml"
 
 Deploy_to_Kubernetes:
   stage: deploy_to_k8s
