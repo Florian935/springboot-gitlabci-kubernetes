@@ -18,21 +18,21 @@ Build:
   stage: build
   # Maven image on which this would be run to build the project
   image: maven:3.6.3-openjdk-11
-  #cache:
-    #paths:
-      #- .m2/repository
+  cache:
+    paths:
+      - .m2/repository
   before_script:
     - mvn clean
   script:
     - mvn package
   artifacts:
-    #name: JAR File
-    #paths:
+    #name: WAR File
+    paths:
       #- target/$PROJECT_NAME.jar
-      #- target/*jar
-  #only:
-    #changes:
-      #- "src/*"
+      - target/*jar
+  only:
+    changes:
+      - "src/*"
 
 
 # Job 2:
@@ -57,7 +57,7 @@ Docker_build:
     - docker login -u $CI_REGISTRY_USER -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
     - docker pull $CI_REGISTRY_IMAGE || true
-    - docker build --cache-from $CI_REGISTRY_IMAGE -t $CI_REGISTRY_IMAGE .
+    - docker build -t $CI_REGISTRY_IMAGE .
     - docker push $CI_REGISTRY_IMAGE
   only:
     changes:
