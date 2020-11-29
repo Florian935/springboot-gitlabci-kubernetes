@@ -18,6 +18,6 @@ public class RootController {
 
     @GetMapping("/kida")
     public String kida() {
-        return "Envoi une photo de Kida";
+        return "Envoi une photo de Kida, bah répond";
     }
 }

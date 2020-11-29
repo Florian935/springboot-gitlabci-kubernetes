@@ -45,7 +45,7 @@ Test:
   # ToDo: Add coverage
   only:
     changes:
-      - "^src/.*"
+      - "^src/*"
 
 Docker_build:
   image: docker:18.09
@@ -61,7 +61,7 @@ Docker_build:
     - docker push $CI_REGISTRY_IMAGE
   only:
     changes:
-      - "^src/.*"
+      - "^src/*"
       - "Dockerfile"
       #- ".gitlab-ci.yml"
 
