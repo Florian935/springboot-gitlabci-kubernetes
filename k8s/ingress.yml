@@ -15,7 +15,7 @@ spec:
         - __CI_ENVIRONMENT_SLUG__.__KUBE_INGRESS_BASE_DOMAIN__
       secretName: tls-demo-secret
   rules:
-    - host: __CI_ENVIRONMENT_SLUG__.__KUBE_INGRESS_BASE_DOMAIN__
+    - host: __CI_PROJECT_NAME__-__CI_ENVIRONMENT_SLUG__.__KUBE_INGRESS_BASE_DOMAIN__
       http:
         paths:
           - path: /
