@@ -85,15 +85,13 @@ Deploy_to_Kubernetes:
 
 .helper_functions: &helper_functions_template |
   function sed_files() {
-    echo "Applying SED on Deployment Yamls"
-    echo "CI_ENVIRONMENT_SLUG variable: ${CI_ENVIRONMENT_SLUG}"
-    echo "CI_PROJECT_PATH_SLUG variable: ${CI_PROJECT_PATH_SLUG}"
-    sed -i "s/__CI_ENVIRONMENT_SLUG__/${CI_ENVIRONMENT_SLUG}/" k8s/deployment.yml
-    sed -i "s/__CI_PROJECT_PATH_SLUG__/${CI_PROJECT_PATH_SLUG}/" k8s/deployment.yml
-    sed -i "s/__CI_PROJECT_NAME__/${CI_PROJECT_NAME}/" k8s/deployment.yml
-    sed -i "s/__CI_ENVIRONMENT_SLUG__/${CI_ENVIRONMENT_SLUG}/" k8s/deployment.yml
-    sed -i "s~__CI_REGISTRY_IMAGE__~${CI_REGISTRY_IMAGE}~" k8s/deployment.yml
-    sed -i "s/__KUBE_INGRESS_BASE_DOMAIN__/${KUBE_INGRESS_BASE_DOMAIN}/" k8s/deployment.yml
+    echo "Applying SED on Deployment, Service and Ingress yaml file"
+    sed -i "s/__CI_ENVIRONMENT_SLUG__/${CI_ENVIRONMENT_SLUG}/" k8s/*.yml
+    sed -i "s/__CI_PROJECT_PATH_SLUG__/${CI_PROJECT_PATH_SLUG}/" k8s/*.yml
+    sed -i "s/__CI_PROJECT_NAME__/${CI_PROJECT_NAME}/" k8s/*.yml
+    sed -i "s/__CI_ENVIRONMENT_SLUG__/${CI_ENVIRONMENT_SLUG}/" k8s/*.yml
+    sed -i "s~__CI_REGISTRY_IMAGE__~${CI_REGISTRY_IMAGE}~" k8s/*.yml
+    sed -i "s/__KUBE_INGRESS_BASE_DOMAIN__/${KUBE_INGRESS_BASE_DOMAIN}/" k8s/*.yml
   }
 
   function ensure_namespace() {
