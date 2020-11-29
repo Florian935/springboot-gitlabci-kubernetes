@@ -4,6 +4,7 @@ kind: Deployment
 metadata:
   labels:
     app: springboot-__CI_PROJECT_NAME__
+    ref: __CI_COMMIT_REF__
   name: springboot
   annotations:
     app.gitlab.com/app: __CI_PROJECT_PATH_SLUG__
