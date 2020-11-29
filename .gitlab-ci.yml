@@ -16,7 +16,7 @@ stages:
 # Job 1:
 Build:
   stage: build
-  # Gradle image on which this would be run to build the project
+  # Maven image on which this would be run to build the project
   image: maven:3.6.3-openjdk-11
   cache:
     paths:
@@ -38,7 +38,7 @@ Build:
 # Job 2:
 Test:
   stage: test
-  # Gradle image on which this would be run to test the project
+  # Maven image on which this would be run to test the project
   image: maven:3.6.3-openjdk-11
   script:
     - mvn test
