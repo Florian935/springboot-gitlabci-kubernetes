@@ -30,9 +30,9 @@ Build:
     #paths:
       #- target/$PROJECT_NAME.jar
       #- target/*jar
-  only:
-    changes:
-      - "src/*"
+  #only:
+    #changes:
+      #- "src/*"
 
 
 # Job 2:
