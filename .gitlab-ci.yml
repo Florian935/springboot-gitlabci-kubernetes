@@ -76,7 +76,7 @@ Deploy_to_Kubernetes:
     - ensure_namespace
     - sed_files
     # To force image update
-    - kubectl delete pod --all
+    #- kubectl delete pod --all
     - kubectl apply -f k8s/
   environment:
     name: production
