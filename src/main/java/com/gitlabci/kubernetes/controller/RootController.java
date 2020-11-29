@@ -17,7 +17,7 @@ public class RootController {
     }
 
     @GetMapping("/kida")
-    public String demo() {
+    public String kida() {
         return "Envoi une photo de Kida";
     }
 }
