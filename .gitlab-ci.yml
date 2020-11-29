@@ -61,7 +61,7 @@ Docker_build:
     - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}
   only:
     changes:
-      - "src/*"
+      - src/*
       - "Dockerfile"
       - ".gitlab-ci.yml"
 
