@@ -13,8 +13,6 @@ spec:
   selector:
     matchLabels:
       app: springboot-__CI_PROJECT_NAME__
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
