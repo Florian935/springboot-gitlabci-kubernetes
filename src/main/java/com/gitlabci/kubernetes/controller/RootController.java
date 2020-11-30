@@ -8,7 +8,7 @@ public class RootController {
 
     @GetMapping("/")
     public String root() {
-        return "Hello from Root";
+        return "Hello from Root !";
     }
 
     @GetMapping("/demo")
